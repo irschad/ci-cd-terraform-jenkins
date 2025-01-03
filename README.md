@@ -1,3 +1,77 @@
+# Complete CI/CD with Terraform  
+
+## Overview  
+This project demonstrates the integration of a fully automated CI/CD pipeline with server provisioning using Terraform. By automating the provisioning of an EC2 instance and deploying applications using Docker Compose, it creates a seamless workflow for building, testing, and deploying Java Maven applications.  
+
+---
+
+## Key Technologies  
+- **Terraform**: Infrastructure as Code for provisioning AWS resources.  
+- **Jenkins**: Automating CI/CD pipeline stages.  
+- **Docker**: Building and deploying containerized applications.  
+- **AWS**: Hosting infrastructure and remote Terraform state.  
+- **Git**: Source code management.  
+- **Java/Maven**: Application stack for building and testing.  
+- **Linux**: Host operating system for EC2.  
+- **Docker Hub**: Repository for Docker images.  
+
+---
+
+## Core Features  
+1. **CI/CD Pipeline Stages**:  
+   - **Continuous Integration (CI)**:  
+     - Build Java Maven artifacts.  
+     - Build and push Docker images to Docker Hub.  
+   - **Continuous Deployment (CD)**:  
+     - Automate EC2 instance provisioning using Terraform.  
+     - Deploy applications with Docker Compose.  
+
+2. **Server Provisioning**:  
+   - **SSH Key Pair**: Secure access to EC2 instances.  
+   - **Terraform Configuration**: Provisions VPC, Subnet, Security Groups, and EC2 instance.  
+   - **S3 Backend**: Remote storage for Terraform state files with versioning enabled.  
+
+3. **Jenkins Integration**:  
+   - Install and configure Terraform within Jenkins.  
+   - Add provisioning and deployment stages to the Jenkins pipeline.  
+
+4. **Deployment Automation**:  
+   - Transfer deployment scripts to EC2 using SSH.  
+   - Deploy application containers with Docker Compose.  
+
+---
+
+## Workflow Summary  
+1. **Setup SSH Keypair**: Create and configure an SSH keypair for secure EC2 access.  
+2. **Configure Terraform**:  
+   - Install Terraform inside the Jenkins container.  
+   - Create Terraform configurations for AWS resources.  
+   - Set up S3 backend for state management.  
+3. **Jenkinsfile Integration**:  
+   - Add provisioning and deployment steps to the Jenkins pipeline.  
+4. **Run Pipeline**: Execute the Jenkins pipeline to:  
+   - Build and push Docker images.  
+   - Provision infrastructure using Terraform.  
+   - Deploy the application to the newly provisioned EC2 instance.  
+5. **Verify Deployment**: Check Terraform resources, view running Docker containers, and access the application in the browser.  
+
+---
+
+## Deployment Validation  
+- **Terraform State**: Verify state files in the configured S3 bucket.  
+- **EC2 Instance**: SSH into the instance and validate running containers using `docker ps`.  
+- **Application Access**: Open the deployed application in a browser using the EC2 public IP.  
+
+---
+## Steps:
+1. Create SSH keypair
+2. Install Terraform inside Jenkins container
+3. Configure S3 backend
+4. Write Terraform Configuration to Provision Server
+5. Update `Jenkinsfile` for Provisioning and Deploy Stages
+6. Run the Jenkins pipeline and check deployment
+
+
 
 ### 1. **Create SSH Keypair**
 
@@ -89,7 +163,7 @@ To use Terraform within Jenkins, you'll need to install it inside the Jenkins co
     This should display the installed version of Terraform.
 
 
-### 3. Configure S3 Backend 
+### 3. **Configure S3 Backend** 
 
 #### Steps to Configure the S3 Backend
 
@@ -122,7 +196,7 @@ To use Terraform within Jenkins, you'll need to install it inside the Jenkins co
 
 
 
-### 4. **Create Terraform Configuration to Provision Server**
+### 4. **Write Terraform Configuration to Provision Server**
 
 Inside your project directory, create a `terraform` folder and then create the `main.tf` file with the following configuration:
 
@@ -365,7 +439,7 @@ Transfer required files (server-cmds.sh and docker-compose.yaml) to the EC2 inst
 Execute the deployment script remotely on the EC2 instance using ssh.
 
  
-### 6. Run the Jenkins pipeline and check deployment:
+### 6. **Run the Jenkins pipeline and check deployment**
      
    Commit the code to GitHub repository.
    Run the Jenkins pipeline.
