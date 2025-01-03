@@ -89,8 +89,40 @@ To use Terraform within Jenkins, you'll need to install it inside the Jenkins co
     This should display the installed version of Terraform.
 
 
+### Configure S3 Backend 
 
-### 3. **Create Terraform Configuration to Provision Server**
+#### Steps to Configure the S3 Backend
+
+1. **Create an S3 Bucket**  
+   Log in to the AWS Management Console and create an S3 bucket named `myapp-tf-s3-bucket9` in the `us-east-1` region.
+
+2. **Enable Versioning**  
+   Navigate to the bucket settings and enable versioning. This ensures a history of state files is maintained for recovery purposes.
+
+3. **Disable Bucket Key**  
+   In the bucket's encryption settings, disable the bucket key option to ensure encryption uses only the default AWS S3-managed keys.
+
+4. **Update Terraform Configuration**  
+   Add the following `terraform` block to your Terraform configuration file to specify the S3 backend:
+
+   ```hcl
+   terraform {
+     required_version = ">= 0.12"
+     backend "s3" {
+       bucket = "myapp-tf-s3-bucket9"
+       key    = "myapp/state.tfstate"
+       region = "us-east-1"
+     }
+   }
+   ```
+
+## Notes
+- **Bucket Naming**: Ensure the bucket name is unique across all AWS accounts.
+- **IAM Permissions**: The IAM role or user running Terraform must have permissions to access the S3 bucket and its objects.
+
+
+
+### 4. **Create Terraform Configuration to Provision Server**
 
 Inside your project directory, create a `terraform` folder and then create the `main.tf` file with the following configuration:
 
@@ -261,7 +293,7 @@ variable "region" {
 }
 ```
 
-### 4. **Update `Jenkinsfile` for Provisioning and Deploy Stages**
+### 5. **Update `Jenkinsfile` for Provisioning and Deploy Stages**
 
 Update the `Jenkinsfile` to include a **provision stage** and a **deploy stage** as described below:
 
@@ -333,10 +365,22 @@ Transfer required files (server-cmds.sh and docker-compose.yaml) to the EC2 inst
 Execute the deployment script remotely on the EC2 instance using ssh.
 
  
-### 5. Run the Jenkins pipeline and check deployment:
+### 6. Run the Jenkins pipeline and check deployment:
      
    Commit the code to GitHub repository.
    Run the Jenkins pipeline.
+   View the console output and observe the following:
+   - Docker build and push stages output
+   - AWS provider initialization and s3 backend initialization with terraform init 
+   - terraform apply output
+   - SSH agent steps
+   - Pulling of docker images, containers creation and start
+
+   View state of terraform configuration:
+   ```hcl
+   terraform state list
+   ```
+   Go to S3 in AWS Console and see tf state file present there now in the bucket "myapp-tf-s3-backend9"
    
    SSH into the EC2 instance and check the container running:
    ```bash
