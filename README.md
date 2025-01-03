@@ -211,7 +211,7 @@ output "ec2-public_ip" {
 ```
 
 Add entry-script.sh File:
-This script will be used for provisioning the EC2 instance:
+This script will be used to install Docker and Docker Compose while provisioning the EC2 instance:
 
 ```bash
 #!/bin/bash
