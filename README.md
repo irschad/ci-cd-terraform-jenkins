@@ -343,7 +343,7 @@ Execute the deployment script remotely on the EC2 instance using ssh.
    docker ps
    ```
    Access the java maven application from web browser:
-   http://<ec2-ip-address>:8000/
+   http://ec2-ip-address:8000/
    
 
 
