@@ -210,10 +210,10 @@ output "ec2-public_ip" {
 }
 ```
 
-Create entry-script.sh File:
+Add entry-script.sh File:
 This script will be used for provisioning the EC2 instance:
 
-
+```bash
 #!/bin/bash
 sudo yum update -y && sudo yum install -y docker
 sudo systemctl start docker
@@ -222,6 +222,7 @@ sudo usermod -aG docker ec2-user
 # Install Docker Compose
 sudo curl -SL "https://github.com/docker/compose/releases/download/v2.20.3/docker-compose-linux-x86_64" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
+```
 
 Create variables.tf File:
 Define your variables in the variables.tf file:
