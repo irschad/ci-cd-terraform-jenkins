@@ -376,7 +376,7 @@ Execute the deployment script remotely on the EC2 instance using ssh.
    - SSH agent steps
    - Pulling of docker images, containers creation and start
 
-   View state of terraform configuration:
+   View list of terraform resources:
    ```hcl
    terraform state list
    ```
