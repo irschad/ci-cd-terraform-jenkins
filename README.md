@@ -208,7 +208,7 @@ resource "aws_instance" "myapp-server" {
 output "ec2-public_ip" {
   value = aws_instance.myapp-server.public_ip
 }
-
+```
 
 Create entry-script.sh File:
 This script will be used for provisioning the EC2 instance:
@@ -225,6 +225,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 
 Create variables.tf File:
 Define your variables in the variables.tf file:
+```hcl
 
 variable "vpc_cidr_block" {
   default = "10.0.0.0/16"
@@ -257,7 +258,7 @@ variable "instance_type" {
 variable "region" {
   default = "us-east-1"
 }
-
+```
 
 ### 4. **Update `Jenkinsfile` for Provisioning and Deploy Stages**
 
