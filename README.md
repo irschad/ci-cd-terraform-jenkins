@@ -89,7 +89,7 @@ To use Terraform within Jenkins, you'll need to install it inside the Jenkins co
     This should display the installed version of Terraform.
 
 
-### Configure S3 Backend 
+### 3. Configure S3 Backend 
 
 #### Steps to Configure the S3 Backend
 
